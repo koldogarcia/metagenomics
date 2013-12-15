@@ -1,0 +1,32 @@
+COMPARING OUTPUTS OF METAGENOMIC ASSIGNMENT PROGRAMS
+
+comp.php is a simple script to compare the outputs of Naïve Bayesian Classifier, 
+Lowest Common Ancestor (both implemented in FCP[1]) and Phymm [2].
+
+USAGE
+
+php comp.php nb_file lca_file phymm_file out_file [key_file]
+
+where
+nb_file: the file of Naïve Bayesian Classifier output
+lca_file: the file of Lowest Common Ancestor output
+phymm_file: the file of Phymm output
+out_file: the generic name for output files
+key_file: optional. a key file of original source of the reads. This file is used to
+	calculate the wrong assignments from a simulated dataset. The format of the key_file
+	should be name_of_read[tab]phylum;class;order;family;genus;sp[EOL]
+	
+Several output files are generated, all of them starting with the name selected in out_file
+- *_taxalevel_assign.txt : a tab-separated file where results of each program and the 
+	common result (majority rule) is write for each read in each taxonomic level.
+- *_comp.txt : number of common and not common assignments by each taxonomic level.
+- *_common.txt : a list of taxa that are assigned equally by the different programs
+- *_diff_phymm.txt : a list of taxa that are not assigned equally by the different programs,
+	the assignment made by Phymm
+- *_diff_nb.txt : a list of taxa that are not assigned equally by the different programs,
+	the assignment made by Naïve Bayesian Classifier
+- *_sorted_txt : a summary of the above files
+
+If a key_file is provided the next two files are generated:
+- *_well.txt : The number of correct assignments made by each program in each taxonomic level
+- *_bad.txt : The number of wrong assignments made by each program in each taxonomic level
